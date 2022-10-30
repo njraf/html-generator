@@ -1,56 +1,55 @@
 import java.io.File
-import java.lang.Exception
 
-fun makePage(students: List<Student>): String =
-	HTML {
-		HEAD {
-			STYLE {
+fun makePage(file: File, students: List<Student>): Unit {
+	HTML(file) {
+		HEAD(file) {
+			STYLE(file, text =
 				"""
 					table, th, td {border: 2px solid black;}
 					td {background-color: cyan;}
 				""".trimMargin()
+			)
+		}
+		BODY(file) {
+			A(file, "https://old.reddit.com") {
+				P(file, text = "To Reddit", style = "color: red;")
 			}
-		} +
-		BODY {
-			A("https://old.reddit.com") {
-				P(text = "To Reddit", style = "color: red;")
-			} +
-			TABLE {
-				var content = TR {
-					TH {
-						"First Name"
-					} +
-					TH {
-						"Last Name"
-					} +
-					TH {
-						"GPA"
-					} +
-					TH {
-						"Age"
+			TABLE(file) {
+				TR(file) {
+					TH(file) {
+						P(file, "First Name")
+					}
+					TH(file) {
+						P(file, "Last Name")
+					}
+					TH(file) {
+						P(file, "GPA")
+					}
+					TH(file) {
+						P(file, "Age")
 					}
 				}
 
 				for (stud in students) {
-					content += TR {
-						TD {
-							stud.firstName
-						} +
-						TD {
-							stud.lastName
-						} +
-						TD {
-							stud.gpa.toString()
-						} +
-						TD {
-							stud.age.toString()
+					TR(file) {
+						TD(file) {
+							P(file, stud.firstName)
+						}
+						TD(file) {
+							P(file, stud.lastName)
+						}
+						TD(file) {
+							P(file, stud.gpa.toString())
+						}
+						TD(file) {
+							P(file, stud.age.toString())
 						}
 					}
 				}
-				return@TABLE content
 			}
 		}
 	}
+}
 
 fun main() {
 	val students = listOf<Student>(
@@ -59,31 +58,70 @@ fun main() {
 		Student("Fred", "Flintstone", 2.7, 11),
 		Student("James", "Cameron", 3.8, 15)
 	)
-	val html = makePage(students)
-	println(html)
 
 	val file = File("output.html")
-	file.writeText(html)
+	makePage(file, students)
+
 }
 
-fun HTML(content: () -> String): String = "<html>${content()}</html>"
+fun HTML(file: File, content: () -> Unit): Unit {
+	file.writeText("<html>\n")
+	content()
+	file.appendText("\n</html>\n")
+}
 
-fun BODY(style: String = "", content: () -> String): String = "<body>${content()}</body>"
+fun BODY(file: File, style: String = "", content: () -> Unit): Unit {
+	file.appendText("<body>\n")
+	content()
+	file.appendText("\n</body>")
+}
 
-fun HEAD(content: () -> String): String = "<head>${content()}</head>"
+fun HEAD(file: File, content: () -> Unit): Unit {
+	file.appendText("<head>\n")
+	content()
+	file.appendText("\n</head>")
+}
 
-fun STYLE(content: () -> String): String = "<style>${content()}</style>"
+fun STYLE(file: File, text: String): Unit {
+	file.appendText("<style>\n$text\n</style>")
+}
 
-fun P(text: String = "", style: String = ""): String = "<p style=\"$style\">$text</p>"
+fun P(file: File, text: String = "", style: String = ""): Unit {
+	file.appendText("<p style=\"$style\">\n$text\n</p>")
+}
 
-fun DIV(style: String = "", content: () -> String): String = "<div>${content()}</div>"
+fun DIV(file: File, style: String = "", content: () -> Unit): Unit {
+	file.appendText("<div>\n")
+	content()
+	file.appendText("\n</div>")
+}
 
-fun A(href: String = "", style: String = "", content: () -> String): String = "<a href=\"${href}\" style=\"$style\">${content()}</a>"
+fun A(file: File, href: String = "", style: String = "", content: () -> Unit): Unit {
+	file.appendText("<a href=\"${href}\" style=\"$style\">\n")
+	content()
+	file.appendText("\n</a>")
+}
 
-fun TABLE(style: String = "", content: () -> String): String = "<table style=\"$style\">${content()}</table>"
+fun TABLE(file: File, style: String = "", content: () -> Unit): Unit {
+	file.appendText("<table style=\"$style\">\n")
+	content()
+	file.appendText("\n</table>")
+}
 
-fun TR(style: String = "", content: () -> String): String = "<tr style=\"$style\">${content()}</tr>"
+fun TR(file: File, style: String = "", content: () -> Unit): Unit {
+	file.appendText("<tr style=\"$style\">\n")
+	content()
+	file.appendText("\n</tr>")
+}
 
-fun TH(style: String = "", content: () -> String): String = "<th style=\"$style\">${content()}</th>"
+fun TH(file: File, style: String = "", content: () -> Unit): Unit {
+	file.appendText("<th style=\"$style\">\n")
+	content()
+	file.appendText("\n</th>")
+}
 
-fun TD(style: String = "", content: () -> String): String = "<td style=\"$style\">${content()}</td>"
+fun TD(file: File, style: String = "", content: () -> Unit): Unit {
+	file.appendText("<td style=\"$style\">\n")
+	content()
+	file.appendText("\n</td>")
+}
