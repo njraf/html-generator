@@ -1,0 +1,1 @@
+class Student(val firstName: String, val lastName: String, val gpa: Double, val age: Int)
