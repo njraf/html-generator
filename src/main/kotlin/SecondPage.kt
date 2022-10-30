@@ -1,19 +1,19 @@
 import java.io.File
 
-fun FrontPage(students: List<Student>): Unit {
-	val file = File("front_page.html")
+fun SecondPage(students: List<Student>): Unit {
+	val file = File("second_page.html")
 	HTML(file) {
 		HEAD(file) {
 			STYLE(file, text =
 			"""
-					table, th, td {border: 2px solid black;}
-					td {background-color: cyan;}
+					table, th, td {border: 2px dashed black;}
+					td {background-color: pink;}
 				""".trimMargin()
 			)
 		}
 		BODY(file) {
-			A(file, "second_page.html") {
-				P(file, text = "To second page", style = "color: red;")
+			A(file, "front_page.html") {
+				P(file, text = "To front page", style = "color: blue;")
 			}
 			TABLE(file) {
 				TR(file) {
@@ -31,7 +31,7 @@ fun FrontPage(students: List<Student>): Unit {
 					}
 				}
 
-				for (stud in students) {
+				for (stud in students.reversed()) {
 					TR(file) {
 						TD(file) {
 							P(file, stud.firstName)

@@ -9,4 +9,5 @@ fun main() {
 	)
 
 	FrontPage(students)
+	SecondPage(students)
 }
