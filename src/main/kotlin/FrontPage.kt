@@ -2,13 +2,14 @@ import java.io.File
 
 fun FrontPage(students: List<Student>): Unit {
 	val file = File("front_page.html")
+	DOCTYPE(file)
 	HTML(file) {
 		HEAD(file) {
 			STYLE(file, text =
 			"""
-					table, th, td {border: 2px solid black;}
-					td {background-color: cyan;}
-				""".trimMargin()
+			table, th, td {border: 2px solid black;}
+			td {background-color: cyan;}
+			""".trimMargin()
 			)
 		}
 		BODY(file) {

@@ -2,13 +2,14 @@ import java.io.File
 
 fun SecondPage(students: List<Student>): Unit {
 	val file = File("second_page.html")
+	DOCTYPE(file)
 	HTML(file) {
 		HEAD(file) {
 			STYLE(file, text =
 			"""
-					table, th, td {border: 2px dashed black;}
-					td {background-color: pink;}
-				""".trimMargin()
+			table, th, td {border: 2px dashed black;}
+			td {background-color: pink;}
+			""".trimMargin()
 			)
 		}
 		BODY(file) {

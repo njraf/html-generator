@@ -1,63 +1,116 @@
 import java.io.File
 
+var indent = 0
+
+fun DOCTYPE(file: File) = file.writeText("<!DOCTYPE html>\n")
+
 fun HTML(file: File, content: () -> Unit): Unit {
-	file.writeText("<html>\n")
+	file.appendText("<html>\n")
+	indent++
 	content()
+	indent--
 	file.appendText("\n</html>\n")
 }
 
 fun BODY(file: File, style: String = "", content: () -> Unit): Unit {
+	for (i in 0 until indent) file.appendText("\t")
 	file.appendText("<body>\n")
+	indent++
 	content()
-	file.appendText("\n</body>")
+	file.appendText("\n")
+	indent--
+	for (i in 0 until indent) file.appendText("\t")
+	file.appendText("</body>")
 }
 
 fun HEAD(file: File, content: () -> Unit): Unit {
+	for (i in 0 until indent) file.appendText("\t")
 	file.appendText("<head>\n")
+	indent++
 	content()
-	file.appendText("\n</head>")
+	file.appendText("\n")
+	indent--
+	for (i in 0 until indent) file.appendText("\t")
+	file.appendText("</head>\n")
 }
 
 fun STYLE(file: File, text: String): Unit {
-	file.appendText("<style>\n$text\n</style>")
+	for (i in 0 until indent) file.appendText("\t")
+	file.appendText("<style>\n")
+	indent++
+	file.appendText("$text\n")
+	indent--
+	for (i in 0 until indent) file.appendText("\t")
+	file.appendText("</style>\n")
 }
 
 fun P(file: File, text: String = "", style: String = ""): Unit {
-	file.appendText("<p style=\"$style\">\n$text\n</p>")
+	for (i in 0 until indent) file.appendText("\t")
+	file.appendText("<p style=\"$style\">$text</p>\n")
 }
 
 fun DIV(file: File, style: String = "", content: () -> Unit): Unit {
+	for (i in 0 until indent) file.appendText("\t")
 	file.appendText("<div>\n")
+	indent++
 	content()
-	file.appendText("\n</div>")
+	file.appendText("\n")
+	indent--
+	for (i in 0 until indent) file.appendText("\t")
+	file.appendText("</div>\n")
 }
 
 fun A(file: File, href: String = "", style: String = "", content: () -> Unit): Unit {
+	for (i in 0 until indent) file.appendText("\t")
 	file.appendText("<a href=\"${href}\" style=\"$style\">\n")
+	indent++
 	content()
-	file.appendText("\n</a>")
+	file.appendText("\n")
+	indent--
+	for (i in 0 until indent) file.appendText("\t")
+	file.appendText("</a>\n")
 }
 
 fun TABLE(file: File, style: String = "", content: () -> Unit): Unit {
+	for (i in 0 until indent) file.appendText("\t")
 	file.appendText("<table style=\"$style\">\n")
+	indent++
 	content()
-	file.appendText("\n</table>")
+	file.appendText("\n")
+	indent--
+	for (i in 0 until indent) file.appendText("\t")
+	file.appendText("</table>\n")
 }
 
 fun TR(file: File, style: String = "", content: () -> Unit): Unit {
+	for (i in 0 until indent) file.appendText("\t")
 	file.appendText("<tr style=\"$style\">\n")
+	indent++
 	content()
-	file.appendText("\n</tr>")
+	file.appendText("\n")
+	indent--
+	for (i in 0 until indent) file.appendText("\t")
+	file.appendText("</tr>\n")
 }
 
 fun TH(file: File, style: String = "", content: () -> Unit): Unit {
+	for (i in 0 until indent) file.appendText("\t")
 	file.appendText("<th style=\"$style\">\n")
+	indent++
 	content()
-	file.appendText("\n</th>")
+	file.appendText("\n")
+	indent--
+	for (i in 0 until indent) file.appendText("\t")
+	file.appendText("</th>\n")
 }
 
 fun TD(file: File, style: String = "", content: () -> Unit): Unit {
+	for (i in 0 until indent) file.appendText("\t")
 	file.appendText("<td style=\"$style\">\n")
+	indent++
 	content()
-	file.appendText("\n</td>")
+	file.appendText("\n")
+	indent--
+	for (i in 0 until indent) file.appendText("\t")
+	file.appendText("</td>\n")
 }
