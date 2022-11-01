@@ -5,19 +5,21 @@ fun FrontPage(students: List<Student>): Unit {
 	DOCTYPE(file)
 	HTML(file) {
 		HEAD(file) {
-			STYLE(file, text =
+			STYLE(file, _text =
 			"""
 			table, th, td {border: 2px solid black;}
 			td {background-color: cyan;}
+			#tableHeader {background-color: yellow;}
+			.firstColumn {background-color: lightgreen;}
 			""".trimMargin()
 			)
 		}
 		BODY(file) {
 			A(file, "second_page.html") {
-				P(file, text = "To second page", style = "color: red;")
+				P(file, _text = "To second page", _style = "color: red;")
 			}
 			TABLE(file) {
-				TR(file) {
+				TR(file, _id = "tableHeader") {
 					TH(file) {
 						P(file, "First Name")
 					}
@@ -34,7 +36,7 @@ fun FrontPage(students: List<Student>): Unit {
 
 				for (stud in students) {
 					TR(file) {
-						TD(file) {
+						TD(file, _class = "firstColumn") {
 							P(file, stud.firstName)
 						}
 						TD(file) {

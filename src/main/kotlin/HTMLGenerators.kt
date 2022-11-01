@@ -2,115 +2,147 @@ import java.io.File
 
 var indent = 0
 
-fun DOCTYPE(file: File) = file.writeText("<!DOCTYPE html>\n")
+fun DOCTYPE(_file: File) = _file.writeText("<!DOCTYPE html>\n")
 
-fun HTML(file: File, content: () -> Unit): Unit {
-	file.appendText("<html>\n")
+fun HTML(_file: File, _content: () -> Unit): Unit {
+	_file.appendText("<html>\n")
 	indent++
-	content()
+	_content()
 	indent--
-	file.appendText("\n</html>\n")
+	_file.appendText("\n</html>\n")
 }
 
-fun BODY(file: File, style: String = "", content: () -> Unit): Unit {
-	for (i in 0 until indent) file.appendText("\t")
-	file.appendText("<body>\n")
+fun BODY(_file: File, _id: String = "", _class: String = "", _style: String = "", _content: () -> Unit): Unit {
+	for (i in 0 until indent) _file.appendText("\t")
+	_file.appendText("<body" +
+			(if (_id.isNotBlank()) " id=\"$_id\"" else "") +
+			(if (_class.isNotBlank()) " class=\"$_class\"" else "") +
+			(if (_style.isNotBlank()) " style=\"$_style\"" else "") +
+			">\n")
 	indent++
-	content()
-	file.appendText("\n")
+	_content()
+	_file.appendText("\n")
 	indent--
-	for (i in 0 until indent) file.appendText("\t")
-	file.appendText("</body>")
+	for (i in 0 until indent) _file.appendText("\t")
+	_file.appendText("</body>")
 }
 
-fun HEAD(file: File, content: () -> Unit): Unit {
-	for (i in 0 until indent) file.appendText("\t")
-	file.appendText("<head>\n")
+fun HEAD(_file: File, _content: () -> Unit): Unit {
+	for (i in 0 until indent) _file.appendText("\t")
+	_file.appendText("<head>\n")
 	indent++
-	content()
-	file.appendText("\n")
+	_content()
+	_file.appendText("\n")
 	indent--
-	for (i in 0 until indent) file.appendText("\t")
-	file.appendText("</head>\n")
+	for (i in 0 until indent) _file.appendText("\t")
+	_file.appendText("</head>\n")
 }
 
-fun STYLE(file: File, text: String): Unit {
-	for (i in 0 until indent) file.appendText("\t")
-	file.appendText("<style>\n")
+fun STYLE(_file: File, _text: String): Unit {
+	for (i in 0 until indent) _file.appendText("\t")
+	_file.appendText("<style>\n")
 	indent++
-	file.appendText("$text\n")
+	_file.appendText("$_text\n")
 	indent--
-	for (i in 0 until indent) file.appendText("\t")
-	file.appendText("</style>\n")
+	for (i in 0 until indent) _file.appendText("\t")
+	_file.appendText("</style>\n")
 }
 
-fun P(file: File, text: String = "", style: String = ""): Unit {
-	for (i in 0 until indent) file.appendText("\t")
-	file.appendText("<p style=\"$style\">$text</p>\n")
+fun P(_file: File, _text: String = "", _id: String = "", _class: String = "", _style: String = ""): Unit {
+	for (i in 0 until indent) _file.appendText("\t")
+	_file.appendText("<p" +
+			(if (_id.isNotBlank()) " id=\"$_id\"" else "") +
+			(if (_class.isNotBlank()) " class=\"$_class\"" else "") +
+			(if (_style.isNotBlank()) " style=\"$_style\"" else "") +
+			">$_text</p>\n")
 }
 
-fun DIV(file: File, style: String = "", content: () -> Unit): Unit {
-	for (i in 0 until indent) file.appendText("\t")
-	file.appendText("<div>\n")
+fun DIV(_file: File, _id: String = "", _class: String = "", _style: String = "", _content: () -> Unit): Unit {
+	for (i in 0 until indent) _file.appendText("\t")
+	_file.appendText("<div" +
+			(if (_id.isNotBlank()) " id=\"$_id\"" else "") +
+			(if (_class.isNotBlank()) " class=\"$_class\"" else "") +
+			(if (_style.isNotBlank()) " style=\"$_style\"" else "") +
+			">\n")
 	indent++
-	content()
-	file.appendText("\n")
+	_content()
+	_file.appendText("\n")
 	indent--
-	for (i in 0 until indent) file.appendText("\t")
-	file.appendText("</div>\n")
+	for (i in 0 until indent) _file.appendText("\t")
+	_file.appendText("</div>\n")
 }
 
-fun A(file: File, href: String = "", style: String = "", content: () -> Unit): Unit {
-	for (i in 0 until indent) file.appendText("\t")
-	file.appendText("<a href=\"${href}\" style=\"$style\">\n")
+fun A(_file: File, _href: String, _id: String = "", _class: String = "", _style: String = "", _content: () -> Unit): Unit {
+	for (i in 0 until indent) _file.appendText("\t")
+	_file.appendText("<a href=\"${_href}\"" +
+			(if (_id.isNotBlank()) " id=\"$_id\"" else "") +
+			(if (_class.isNotBlank()) " class=\"$_class\"" else "") +
+			(if (_style.isNotBlank()) " style=\"$_style\"" else "") +
+			">\n")
 	indent++
-	content()
-	file.appendText("\n")
+	_content()
+	_file.appendText("\n")
 	indent--
-	for (i in 0 until indent) file.appendText("\t")
-	file.appendText("</a>\n")
+	for (i in 0 until indent) _file.appendText("\t")
+	_file.appendText("</a>\n")
 }
 
-fun TABLE(file: File, style: String = "", content: () -> Unit): Unit {
-	for (i in 0 until indent) file.appendText("\t")
-	file.appendText("<table style=\"$style\">\n")
+fun TABLE(_file: File, _id: String = "", _class: String = "", _style: String = "", _content: () -> Unit): Unit {
+	for (i in 0 until indent) _file.appendText("\t")
+	_file.appendText("<table" +
+			(if (_id.isNotBlank()) " id=\"$_id\"" else "") +
+			(if (_class.isNotBlank()) " class=\"$_class\"" else "") +
+			(if (_style.isNotBlank()) " style=\"$_style\"" else "") +
+			">\n")
 	indent++
-	content()
-	file.appendText("\n")
+	_content()
+	_file.appendText("\n")
 	indent--
-	for (i in 0 until indent) file.appendText("\t")
-	file.appendText("</table>\n")
+	for (i in 0 until indent) _file.appendText("\t")
+	_file.appendText("</table>\n")
 }
 
-fun TR(file: File, style: String = "", content: () -> Unit): Unit {
-	for (i in 0 until indent) file.appendText("\t")
-	file.appendText("<tr style=\"$style\">\n")
+fun TR(_file: File, _id: String = "", _class: String = "", _style: String = "", _content: () -> Unit): Unit {
+	for (i in 0 until indent) _file.appendText("\t")
+	_file.appendText("<tr" +
+			(if (_id.isNotBlank()) " id=\"$_id\"" else "") +
+			(if (_class.isNotBlank()) " class=\"$_class\"" else "") +
+			(if (_style.isNotBlank()) " style=\"$_style\"" else "") +
+			">\n")
 	indent++
-	content()
-	file.appendText("\n")
+	_content()
+	_file.appendText("\n")
 	indent--
-	for (i in 0 until indent) file.appendText("\t")
-	file.appendText("</tr>\n")
+	for (i in 0 until indent) _file.appendText("\t")
+	_file.appendText("</tr>\n")
 }
 
-fun TH(file: File, style: String = "", content: () -> Unit): Unit {
-	for (i in 0 until indent) file.appendText("\t")
-	file.appendText("<th style=\"$style\">\n")
+fun TH(_file: File, _id: String = "", _class: String = "", _style: String = "", _content: () -> Unit): Unit {
+	for (i in 0 until indent) _file.appendText("\t")
+	_file.appendText("<th" +
+			(if (_id.isNotBlank()) " id=\"$_id\"" else "") +
+			(if (_class.isNotBlank()) " class=\"$_class\"" else "") +
+			(if (_style.isNotBlank()) " style=\"$_style\"" else "") +
+			">\n")
 	indent++
-	content()
-	file.appendText("\n")
+	_content()
+	_file.appendText("\n")
 	indent--
-	for (i in 0 until indent) file.appendText("\t")
-	file.appendText("</th>\n")
+	for (i in 0 until indent) _file.appendText("\t")
+	_file.appendText("</th>\n")
 }
 
-fun TD(file: File, style: String = "", content: () -> Unit): Unit {
-	for (i in 0 until indent) file.appendText("\t")
-	file.appendText("<td style=\"$style\">\n")
+fun TD(_file: File, _id: String = "", _class: String = "", _style: String = "", _content: () -> Unit): Unit {
+	for (i in 0 until indent) _file.appendText("\t")
+	_file.appendText("<td" +
+			(if (_id.isNotBlank()) " id=\"$_id\"" else "") +
+			(if (_class.isNotBlank()) " class=\"$_class\"" else "") +
+			(if (_style.isNotBlank()) " style=\"$_style\"" else "") +
+			">\n")
 	indent++
-	content()
-	file.appendText("\n")
+	_content()
+	_file.appendText("\n")
 	indent--
-	for (i in 0 until indent) file.appendText("\t")
-	file.appendText("</td>\n")
+	for (i in 0 until indent) _file.appendText("\t")
+	_file.appendText("</td>\n")
 }

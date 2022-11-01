@@ -5,7 +5,7 @@ fun SecondPage(students: List<Student>): Unit {
 	DOCTYPE(file)
 	HTML(file) {
 		HEAD(file) {
-			STYLE(file, text =
+			STYLE(file, _text =
 			"""
 			table, th, td {border: 2px dashed black;}
 			td {background-color: pink;}
@@ -14,7 +14,7 @@ fun SecondPage(students: List<Student>): Unit {
 		}
 		BODY(file) {
 			A(file, "front_page.html") {
-				P(file, text = "To front page", style = "color: blue;")
+				P(file, _text = "To front page", _style = "color: blue;")
 			}
 			TABLE(file) {
 				TR(file) {
