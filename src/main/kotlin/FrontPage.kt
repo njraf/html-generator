@@ -5,6 +5,7 @@ fun FrontPage(students: List<Student>): Unit {
 	DOCTYPE(file)
 	HTML(file) {
 		HEAD(file) {
+			TITLE(file, "Front Page")
 			STYLE(file, _text =
 			"""
 			table, th, td {border: 2px solid black;}
@@ -18,6 +19,7 @@ fun FrontPage(students: List<Student>): Unit {
 			A(file, "second_page.html") {
 				P(file, _text = "To second page", _style = "color: red;")
 			}
+
 			TABLE(file) {
 				TR(file, _id = "tableHeader") {
 					TH(file) {
@@ -51,6 +53,11 @@ fun FrontPage(students: List<Student>): Unit {
 					}
 				}
 			} // TABLE
+
+			UL(file) {
+				LI(file, "First Item")
+				LI(file, "Second Item")
+			}
 		} // BODY
 	} // HTML
 }

@@ -5,6 +5,7 @@ fun SecondPage(students: List<Student>): Unit {
 	DOCTYPE(file)
 	HTML(file) {
 		HEAD(file) {
+			TITLE(file, "Second Page")
 			STYLE(file, _text =
 			"""
 			table, th, td {border: 2px dashed black;}
